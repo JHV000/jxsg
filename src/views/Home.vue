@@ -1,18 +1,41 @@
 <template>
   <div class="home">
-    <img alt="Vue logo" src="../assets/logo.png">
-    <HelloWorld msg="Welcome to Your Vue.js App"/>
+    <mt-navbar v-model="selected">
+      <mt-tab-item id="1">登录</mt-tab-item>
+      <mt-tab-item id="2">注册</mt-tab-item>
+    </mt-navbar>
+
+    <!-- tab-container -->
+    <mt-tab-container v-model="selected">
+
+      <!-- 登录界面 -->
+      <mt-tab-container-item id="1">
+       <login></login>
+      </mt-tab-container-item>
+
+      <!-- 注册界面 -->
+      <mt-tab-container-item id="2">
+        <register></register>
+      </mt-tab-container-item>
+    </mt-tab-container>
   </div>
 </template>
 
 <script>
 // @ is an alias to /src
-import HelloWorld from '@/components/HelloWorld.vue'
-
+import login from '@/components/login'
+import register from '@/components/register'
 export default {
-  name: 'Home',
+  name: "Home",
   components: {
-    HelloWorld
-  }
-}
+    login,
+    register
+  },
+  data() {
+    return {
+      selected: "1",
+    };
+  },
+  methods: {},
+};
 </script>

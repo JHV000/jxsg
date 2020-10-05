@@ -15,7 +15,7 @@
   </div>
 </template>
 <script>
-import { Indicator } from "mint-ui";
+import { Indicator,Toast } from "mint-ui";
 export default {
   name: "login",
   data() {
@@ -36,7 +36,7 @@ export default {
           password: this.password,
         })
         .then((res) => {
-          // console.log(res);
+          console.log(res);
           Indicator.close();
           if (res.result.code == 1) {
             this.$router.push({
@@ -46,7 +46,11 @@ export default {
               },
             });
           }
-        });
+        }).catch((err)=>{
+          Indicator.close();
+          this.showToast("用户名或密码错误，请重试")
+          // console.log(err);
+        })
     },
     showToast(mes) {
       this.toastInstanse = Toast({

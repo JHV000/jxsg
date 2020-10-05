@@ -15,10 +15,7 @@ axios.interceptors.request.use(config => {
 // 配置响应拦截器 
 axios.interceptors.response.use(res => {
     //这里面写所需要的代码
-    // if (res.data.code == '401') {
-    //     //全局登陆过滤，当判读token失效或者没有登录时 返回登陆页面
-    //     return false;
-    // };
+
     if(res.status === 200){
         return Promise.resolve(res.data);
     }else{
@@ -27,6 +24,7 @@ axios.interceptors.response.use(res => {
         });
     }
 }, error => {
+    
     return Promise.reject(error);
 });
 

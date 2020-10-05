@@ -11,12 +11,12 @@
     <!-- tab-container -->
     <mt-tab-container v-model="selected">
 
-      <!-- 登录界面 -->
-      <mt-tab-container-item id="1">
-       <sign-page></sign-page>
+      <!-- 打卡界面 -->
+      <mt-tab-container-item class="item" id="1">
+       <sign-page v-bind:token="token"></sign-page>
       </mt-tab-container-item>
-
-      <!-- 注册界面 -->
+      
+      <!-- 记录界面 -->
       <mt-tab-container-item id="2">
         <record-page></record-page>
       </mt-tab-container-item>
@@ -36,11 +36,12 @@ export default {
   },
   data() {
     return {
-        selected:"1"
-        
+        selected:"1",
+        token:this.$route.query.token
     };
   },
   methods: {},
+  
 };
 </script>
 <style>
@@ -52,4 +53,5 @@ export default {
 .signpart {
     margin-top: 20px;
 }
+
 </style>

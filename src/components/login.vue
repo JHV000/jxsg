@@ -15,7 +15,7 @@
   </div>
 </template>
 <script>
-import { Indicator } from 'mint-ui';
+import { Indicator } from "mint-ui";
 export default {
   name: "login",
   data() {
@@ -27,20 +27,25 @@ export default {
   methods: {
     login() {
       Indicator.open({
-        text: "Loading...",
+        text: "登录中...",
         spinnerType: "fading-circle",
-      })
+      });
       this.$axios
         .post("/api/auth/login", {
           name: this.username,
           password: this.password,
         })
         .then((res) => {
+          // console.log(res);
           Indicator.close();
-          if(res.result.code==1){
-            this.$router.replace('/sign')
+          if (res.result.code == 1) {
+            this.$router.push({
+              path: "/sign",
+              query: {
+                token : res.data.access_token
+              },
+            });
           }
-         
         });
     },
     showToast(mes) {
@@ -55,20 +60,20 @@ export default {
 </script>
 <style>
 .mint-tab-item-label {
-    font-size: 25px !important;
+  font-size: 25px !important;
 }
 .mint-navbar .mint-tab-item.is-selected {
-    background-color: #ef4f4f;
-    color: #fff !important;
+  background-color: #ef4f4f;
+  color: #fff !important;
 }
 .mint-tab-container {
-    margin: 60px auto;
-    width: 80%;
+  margin: 60px auto;
+  width: 80%;
 }
 .mint-cell {
-    border-bottom: 1px solid !important;
-    /* border-radius: 10px !important; */
-    margin-top: 20px;
+  border-bottom: 1px solid !important;
+  /* border-radius: 10px !important; */
+  margin-top: 20px;
 }
 .mint-button {
   margin-top: 30px;

@@ -1,17 +1,19 @@
 <template>
   <div>
     <mt-field
+    class="login-cell"
       label="用户名"
       placeholder="请输入用户名"
       v-model="username"
     ></mt-field>
     <mt-field
+    class="login-cell"
       label="密码"
       placeholder="请输入密码"
       type="password"
       v-model="password"
     ></mt-field>
-    <mt-button size="large" @click="login" type="danger">登录</mt-button>
+    <mt-button class="login-btn" size="large" @click="login" type="danger">登录</mt-button>
   </div>
 </template>
 <script>
@@ -22,6 +24,7 @@ export default {
     return {
       username: "",
       password: "",
+      address:'/sign'
     };
   },
   methods: {
@@ -30,6 +33,9 @@ export default {
         text: "登录中...",
         spinnerType: "fading-circle",
       });
+      if(this.username=="jxsg"){
+        this.address = '/author'
+      }
       this.$axios
         .post("/api/auth/login", {
           name: this.username,
@@ -40,7 +46,7 @@ export default {
           Indicator.close();
           if (res.result.code == 1) {
             this.$router.push({
-              path: "/sign",
+              path: this.address,
               query: {
                 token : res.data.access_token
               },
@@ -70,16 +76,13 @@ export default {
   background-color: #ef4f4f;
   color: #fff !important;
 }
-.mint-tab-container {
-  margin: 60px auto;
-  width: 80%;
-}
-.mint-cell {
+
+.login-cell {
   border-bottom: 1px solid !important;
   /* border-radius: 10px !important; */
   margin-top: 20px;
 }
-.mint-button {
+.login-btn {
   margin-top: 30px;
 }
 </style>

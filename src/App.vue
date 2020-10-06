@@ -19,6 +19,16 @@
   width: 50% !important;
   padding: 40px !important;
 }
+.mint-tab-item {
+  border-radius: 50px;
+  border-bottom: 0px !important;
+}
+.mint-navbar {
+  border-radius: 50px;
+    width: 90%;
+    margin: 0 auto;
+}
+
 body {
   background-color: #e1e1e1;
 

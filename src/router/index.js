@@ -22,7 +22,12 @@ const routes = [
     path: '/sign',
     name: 'Sign',
     component: () => import(/* webpackChunkName: "about" */ '../views/Sign.vue')
-  }
+  },
+  {
+    path: '/author',
+    name: 'authorPage',
+    component: () => import(/* webpackChunkName: "about" */ '../views/authorPage.vue')
+  },
 ]
 
 const router = new VueRouter({

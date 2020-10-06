@@ -1,11 +1,13 @@
 <template>
   <div>
     <mt-field
+      class="r-cell"
       label="用户名"
       placeholder="请输入用户名"
       v-model="username"
     ></mt-field>
     <mt-radio
+    class="r-cell"
       title="所在店面"
       v-model="company"
       align="right"
@@ -13,6 +15,7 @@
     >
     </mt-radio>
     <mt-field
+    class="r-cell"
       label="密码"
       placeholder="请输入密码"
       type="password"
@@ -20,12 +23,13 @@
     ></mt-field>
     <p class="pwdalert">密码长度至少为8位的英文字母或数字</p>
     <mt-field
+    class="r-cell"
       label="确认密码"
       placeholder="请再次输入密码"
       type="password"
       v-model="passwordSecond"
     ></mt-field>
-    <mt-button size="large" @click="register" type="danger">立即注册</mt-button>
+    <mt-button size="large" class="r-btn" @click="register" type="danger">立即注册</mt-button>
   </div>
 </template>
 <script>
@@ -88,5 +92,11 @@ export default {
 .pwdalert {
   color: red;
   font-size: 10px;
+}
+.r-cell {
+  margin-top: 20px;
+}
+.r-btn {
+  margin-top: 20px;
 }
 </style>

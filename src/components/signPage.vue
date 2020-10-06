@@ -14,11 +14,11 @@
       <p class="pickername">班次:</p>
       <input type="text"  v-model="timeValue" />
     </div>
-    <mt-button v-bind:disabled="disabled" size="large" @click="confirm" type="danger">打卡</mt-button>
+    <mt-button class="s-btn" v-bind:disabled="disabled" size="large" @click="confirm" type="danger">打卡</mt-button>
   </div>
 </template>
 <script>
-import { Toast,MessageBox,Button } from "mint-ui";
+import { Toast,MessageBox,Button,Indicator } from "mint-ui";
 
 export default {
   name: "signPage",
@@ -102,6 +102,10 @@ export default {
         message: "确定在" + "<br/>" + "<b>" + this.date + "</b>" + "<br/>" + "以星级"+ "<b>" + this.starValue + "</b>" + "<br/>" + "打卡" + "<b>" + this.timeValue + "</b>"  + "班吗？",
         showCancelButton: true,
       }).then(()=>{
+        Indicator.open({
+        text: "打卡中...",
+        spinnerType: "fading-circle",
+      });
         this.$axios.post("api/sigrec",{
           star : this.starValue,
           money: 10,
@@ -111,8 +115,15 @@ export default {
             'Authorization':'Bearer ' + this.token
           } 
         }).then((res)=>{
+          Indicator.close();
+          this.showToast("打卡成功！")
           console.log(res);
+        }).catch((err)=>{
+          Indicator.close();
+          this.showToast("打卡失败，请重试")
+          console.log(err);
         })
+
       });
     },
     getPrice(res) {
@@ -190,5 +201,8 @@ input {
 .date {
   text-align: center;
   padding: 20px 0px;
+}
+.s-btn {
+  margin-top:20px;
 }
 </style>

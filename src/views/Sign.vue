@@ -11,7 +11,7 @@
       <mt-tab-container class="tab-container" v-model="selected">
         <!-- 打卡界面 -->
         <mt-tab-container-item class="item" id="1">
-          <sign-page v-bind:token="token"></sign-page>
+          <sign-page></sign-page>
         </mt-tab-container-item>
 
         <!-- 记录界面 -->
@@ -34,7 +34,7 @@ export default {
   data() {
     return {
       selected: "1",
-      token: this.$route.query.token,
+      // token: this.$route.query.token,
     };
   },
   methods: {},

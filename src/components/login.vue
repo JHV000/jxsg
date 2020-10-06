@@ -42,14 +42,15 @@ export default {
           password: this.password,
         })
         .then((res) => {
+          window.sessionStorage.setItem('cat_token', res.data.access_token)
           console.log(res);
           Indicator.close();
           if (res.result.code == 1) {
             this.$router.push({
               path: this.address,
-              query: {
-                token : res.data.access_token
-              },
+              // query: {
+              //   token : res.data.access_token
+              // },
             });
           }
         }).catch((err)=>{

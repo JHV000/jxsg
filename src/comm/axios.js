@@ -6,8 +6,14 @@ axios.defaults.withCredentials = false; //设置cross跨域 并设置访问权�
 // axios.defaults.headers.common['Authorization'] = ''; // 设置请求头为 Authorization
 
 //配置发送请求前的拦截器 可以设置token信息 
-axios.interceptors.request.use(config => {
-    return config;
+axios.interceptors.request.use(res => {
+    // console.log(res);
+    // if (res.method == 'post') {
+    //     res.params = {};
+    //     return res
+    // }
+ 
+    return res;
 }, error => {
     return Promise.reject(error);
 });
@@ -15,16 +21,18 @@ axios.interceptors.request.use(config => {
 // 配置响应拦截器 
 axios.interceptors.response.use(res => {
     //这里面写所需要的代码
-
-    if(res.status === 200){
+    // console.log(res);
+  
+    if (res.status === 200) {
         return Promise.resolve(res.data);
-    }else{
+    } else {
         return Promise.reject({
-            code: -1, msg: '请求出错'
+            code: -1,
+            msg: '请求出错'
         });
     }
 }, error => {
-    
+
     return Promise.reject(error);
 });
 

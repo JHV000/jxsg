@@ -15,7 +15,7 @@
     </div>
     <mt-button
       class="s-btn"
-      v-bind:disabled="false"
+      v-bind:disabled="disabled"
       size="large"
       @click="confirm"
       type="danger"

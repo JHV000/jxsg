@@ -12,16 +12,28 @@
       placeholder="请输入结束时间"
       type="date"
     ></mt-field>
-    <mt-button size="large" type="danger" @click.native="showSalary"
+    <mt-button
+      class="salary-btn"
+      size="large"
+      type="danger"
+      @click.native="showSalary"
       >开始统计</mt-button
     >
     <div class="table-box">
-
+      <div v-for="(item, index) in userList" v-bind:key="index">
+        <mt-cell
+          :title="item.user_name"
+          @click.native="getDetail(item.user_id)"
+          is-link
+        >
+          <span style="color: green">{{ item.user_money }}</span>
+        </mt-cell>
+      </div>
     </div>
   </div>
 </template>
 <script>
-import { Toast, Field } from "mint-ui";
+import { Toast, Field,Indicator } from "mint-ui";
 export default {
   name: "salary",
   data() {
@@ -29,11 +41,40 @@ export default {
       pickerVisible: false,
       starttime: "",
       endtime: "",
+      userList: [
+        
+      ],
     };
   },
   methods: {
     showSalary() {
-      console.log(this.starttime + "  " + this.endtime);
+      Indicator.open({
+        text: "统计中...",
+        spinnerType: "fading-circle",
+      });
+      const token = window.sessionStorage.getItem("cat_token");
+      this.$axios
+        .get("api/admin/userlist", {
+          headers: {
+            Authorization: "Bearer " + token,
+          },
+        })
+        .then((res) => {
+          Indicator.close()
+          this.userList = res.data;
+          // console.log(this.employ);
+        });
+    },
+    getDetail(userid) {
+      console.log(userid);
+      this.$router.push({
+        path: "/about",
+        query: {
+          userid: userid,
+          stime: this.starttime,
+          etime: this.endtime,
+        },
+      });
     },
     showToast(mes) {
       this.toastInstanse = Toast({
@@ -46,4 +87,7 @@ export default {
 };
 </script>
 <style>
+.salary-btn {
+  margin-top: 10px;
+}
 </style>

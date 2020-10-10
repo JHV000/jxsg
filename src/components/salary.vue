@@ -38,7 +38,6 @@ export default {
   name: "salary",
   data() {
     return {
-      pickerVisible: false,
       starttime: "",
       endtime: "",
       userList: [

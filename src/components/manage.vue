@@ -4,7 +4,7 @@
       <mt-cell class="m-cell" :title="item.user_name">
         <mt-button
           size="small"
-          @click.native="deleteUser(item.user_id)"
+          @click.native="deleteUser(item.user_id, item.user_name)"
           type="danger"
           icon="back"
           >删除</mt-button
@@ -14,7 +14,8 @@
   </div>
 </template>
 <script>
-import { Indicator } from "mint-ui"
+import { Indicator, MessageBox, Toast } from "mint-ui";
+const token = window.sessionStorage.getItem("cat_token");
 export default {
   name: "manage",
   data() {
@@ -22,16 +23,16 @@ export default {
       employ: [],
     };
   },
-  created() {
-    this.getUser();
-  },
+  // created() {
+  //   this.getUser();
+  // },
   methods: {
     getUser() {
       Indicator.open({
         text: "加载中...",
         spinnerType: "fading-circle",
       });
-      const token = window.sessionStorage.getItem("cat_token");
+
       this.$axios
         .get("api/admin/userlist", {
           headers: {
@@ -39,14 +40,41 @@ export default {
           },
         })
         .then((res) => {
-          Indicator.close()
+          Indicator.close();
           this.employ = res.data;
           // console.log(this.employ);
         });
     },
-    deleteUser(id){
-console.log(id);
-    }
+    deleteUser(id, name) {
+      MessageBox.confirm("确定删除员工" + "<b>" + name + "</b>吗？")
+        .then(() => {
+          this.$axios
+            .delete("api/admin/user/delete/" + id, {
+              headers: {
+                Authorization: "Bearer " + token,
+              },
+            })
+            .then((res) => {
+              this.showToast("删除成功！");
+              setTimeout(() => {
+                this.getUser();
+              }, 1000);
+
+              // console.log(res);
+            });
+        })
+        .catch((err) => {
+          this.showToast("删除失败，请重试");
+          console.log(err);
+        });
+    },
+    showToast(mes) {
+      this.toastInstanse = Toast({
+        message: mes,
+        position: "middle",
+        duration: 1000,
+      });
+    },
   },
 };
 </script>

@@ -4,7 +4,10 @@
       <!-- <router-link to="/">Home</router-link> |
       <router-link to="/about">About</router-link> -->
     </div>
-    <router-view/>
+    <keep-alive>
+      <router-view v-if="this.$route.meta.keepAlive"></router-view>
+    </keep-alive>
+    <!-- <router-view /> -->
   </div>
 </template>
 
@@ -15,7 +18,7 @@
   text-decoration: none;
   list-style: none;
 }
-.mint-toast{
+.mint-toast {
   width: 50% !important;
   padding: 40px !important;
 }
@@ -25,12 +28,11 @@
 }
 .mint-navbar {
   border-radius: 50px;
-    width: 90%;
-    margin: 0 auto;
+  width: 90%;
+  margin: 0 auto;
 }
 
 body {
   background-color: #e1e1e1;
-
 }
 </style>

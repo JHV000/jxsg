@@ -15,7 +15,10 @@ const routes = [
   {
     path: '/',
     name: 'Home',
-    component: Home
+    component: Home,
+    meta:{
+      keepAlive: true, //此组件要被缓存
+    },
   },
   {
     path: '/about',
@@ -23,17 +26,26 @@ const routes = [
     // route level code-splitting
     // this generates a separate chunk (about.[hash].js) for this route
     // which is lazy-loaded when the route is visited.
-    component: () => import(/* webpackChunkName: "about" */ '../views/About.vue')
+    component: () => import(/* webpackChunkName: "about" */ '../views/About.vue'),
+    meta:{
+      keepAlive: true, //此组件要被缓存
+    },
   },
   {
     path: '/sign',
     name: 'Sign',
-    component: () => import(/* webpackChunkName: "about" */ '../views/Sign.vue')
+    component: () => import(/* webpackChunkName: "about" */ '../views/Sign.vue'),
+    meta:{
+      keepAlive: true, //此组件要被缓存
+    },
   },
   {
     path: '/author',
     name: 'authorPage',
-    component: () => import(/* webpackChunkName: "about" */ '../views/authorPage.vue')
+    component: () => import(/* webpackChunkName: "about" */ '../views/authorPage.vue'),
+    meta:{
+      keepAlive: true, //此组件要被缓存
+    },
   },
 ]
 

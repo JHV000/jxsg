@@ -33,18 +33,33 @@ export default {
     return {
       starpicker: [
         {
-          price: 10,
+          price: 8,
           name: "2.5",
           method: this.getPrice,
         },
         {
-          price: 8,
+          price: 9.6,
           name: "3",
           method: this.getPrice,
         },
         {
-          price: 10,
+          price: 11.2,
+          name: "3.5",
+          method: this.getPrice,
+        },
+        {
+          price: 12.8,
           name: "4",
+          method: this.getPrice,
+        },
+        {
+          price: 14.4,
+          name: "4.5",
+          method: this.getPrice,
+        },
+        {
+          price: 16,
+          name: "5",
           method: this.getPrice,
         },
       ],
@@ -103,10 +118,7 @@ export default {
       }
     },
     confirm() {
-      MessageBox({
-        title: "提示",
-        message:
-          "确定在" +
+      MessageBox.confirm("确定在" +
           "<br/>" +
           "<b>" +
           this.date +
@@ -121,9 +133,8 @@ export default {
           "<b>" +
           this.timeValue +
           "</b>" +
-          "班吗？",
-        showCancelButton: true,
-      }).then(() => {
+          "班吗？"
+          ).then(() => {
         Indicator.open({
           text: "打卡中...",
           spinnerType: "fading-circle",
@@ -148,14 +159,22 @@ export default {
           .then((res) => {
             Indicator.close();
             this.showToast("打卡成功！");
-            console.log(res);
+            this.disabled = true
+            setTimeout(()=>{
+              this.disabled = false
+              console.log(res);
+            },10800000)
+            
           })
           .catch((err) => {
             Indicator.close();
             this.showToast("打卡失败，请重试");
             console.log(err);
           });
-      });
+      })
+      .catch((err)=>{
+        console.log(err)
+      })
     },
     getPrice(res) {
       this.starValue = res.name;

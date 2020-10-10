@@ -4,8 +4,9 @@
     </mt-header>
     <div class="signpart">
     <mt-navbar v-model="selected">
-      <mt-tab-item id="1">员工管理</mt-tab-item>
-      <mt-tab-item id="2">统计工资</mt-tab-item>
+      
+      <mt-tab-item id="1">统计工资</mt-tab-item>
+      <mt-tab-item id="2">员工管理</mt-tab-item>
     </mt-navbar>
 
     <!-- tab-container -->
@@ -13,12 +14,13 @@
         
       <!-- 管理员工界面 -->
       <mt-tab-container-item class="item" id="1">
-      <manage></manage>
+       <salary></salary>
       </mt-tab-container-item>
       
       <!-- 工资统计界面 -->
       <mt-tab-container-item id="2">
-        <salary></salary>
+       
+        <manage></manage>
       </mt-tab-container-item>
     </mt-tab-container>
     </div>

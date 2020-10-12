@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="main">
     <mt-header id="title" title="稷下时光"> </mt-header>
     <div class="home">
       <mt-navbar v-model="selected">
@@ -51,7 +51,7 @@ export default {
   margin-top: 20px;
 }
 .home .tab-container {
-  margin: 60px auto;
+  margin: 30px auto;
   width: 80%;
 }
 </style>

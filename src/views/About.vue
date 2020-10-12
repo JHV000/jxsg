@@ -5,9 +5,14 @@
         <mt-button icon="back">返回</mt-button>
       </router-link>
     </mt-header>
-    <div class="card" v-for="(item,index) in detail" v-bind:key="index">
-      <mt-cell title="序号"><span>{{ index + 1 }}</span> </mt-cell>
-      <mt-cell title="星级"><span>{{ item.star }}</span></mt-cell>
+    <p class="aboutUser">{{ username }}的打卡记录</p>
+    <div class="card" v-for="(item, index) in detail" v-bind:key="index">
+      <mt-cell title="序号"
+        ><span>{{ index + 1 }}</span>
+      </mt-cell>
+      <mt-cell title="星级"
+        ><span>{{ item.star }}</span></mt-cell
+      >
       <mt-cell title="班次">{{ item.grade }}</mt-cell>
       <mt-cell title="工资">{{ item.money }}</mt-cell>
       <mt-cell title="打卡时间">{{ item.created_at }}</mt-cell>
@@ -16,12 +21,14 @@
   </div>
 </template>
 <script>
-import { Header, Indicator, Toast,Cell } from "mint-ui";
+import { Header, Indicator, Toast, Cell } from "mint-ui";
+
 export default {
   name: "About",
   data() {
     return {
-      detail:[]
+      detail: [],
+      username: "",
     };
   },
   mounted() {
@@ -36,6 +43,7 @@ export default {
         text: "加载中...",
         spinnerType: "fading-circle",
       });
+      this.username = this.$route.query.username;
       const id = this.$route.query.userid;
       const starttime = this.$route.query.stime;
       const endtime = this.$route.query.etime;
@@ -49,14 +57,14 @@ export default {
         })
         .then((res) => {
           Indicator.close();
-          this.detail = res.data
-          console.log(res);
+          this.detail = res.data;
+          // console.log(res);
         })
         .catch((err) => {
           // console.log(id);
           Indicator.close();
           this.showToast("加载失败，请重试");
-          console.log(err);
+          // console.log(err);
         });
     },
     showToast(mes) {
@@ -76,6 +84,11 @@ export default {
   height: 50px;
 }
 .card {
-  margin: 5px;
+  margin: 10px;
+  box-shadow: 0 15px 35px rgba(0, 0, 0, 0.1);
+}
+.aboutUser {
+  text-align: center;
+  padding: 10px;
 }
 </style>

@@ -49,8 +49,8 @@ export default {
 .signpart {
   margin-top: 20px;
 }
-.signpart .tab-container {
-  margin: 60px auto;
+.part {
+  margin: 30px auto;
   width: 80%;
 }
 </style>

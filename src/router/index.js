@@ -17,18 +17,15 @@ const routes = [
     name: 'Home',
     component: Home,
     meta:{
-      keepAlive: true, //此组件要被缓存
+      keepAlive: false, 
     },
   },
   {
     path: '/about',
     name: 'About',
-    // route level code-splitting
-    // this generates a separate chunk (about.[hash].js) for this route
-    // which is lazy-loaded when the route is visited.
     component: () => import(/* webpackChunkName: "about" */ '../views/About.vue'),
     meta:{
-      keepAlive: true, //此组件要被缓存
+      keepAlive: false, 
     },
   },
   {
@@ -36,21 +33,30 @@ const routes = [
     name: 'Sign',
     component: () => import(/* webpackChunkName: "about" */ '../views/Sign.vue'),
     meta:{
-      keepAlive: true, //此组件要被缓存
+      keepAlive: false, 
     },
+  },
+  {
+    path: '/salary',
+    name: 'salary',
+    component: () => import(/* webpackChunkName: "about" */ '../components/salary.vue'),
+    meta:{
+      keepAlive: true, //此组件要被缓存
+    }
   },
   {
     path: '/author',
     name: 'authorPage',
     component: () => import(/* webpackChunkName: "about" */ '../views/authorPage.vue'),
     meta:{
-      keepAlive: true, //此组件要被缓存
+      keepAlive: true, 
     },
   },
+  
 ]
 
 const router = new VueRouter({
-  mode: 'history',
+  // mode: 'history',
   base: process.env.BASE_URL,
   routes
 })

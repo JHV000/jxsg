@@ -23,7 +23,7 @@
       <div v-for="(item, index) in userList" v-bind:key="index">
         <mt-cell
           :title="item.user_name"
-          @click.native="getDetail(item.user_id)"
+          @click.native="getDetail(item.user_id, item.user_name)"
           is-link
         >
           <span style="color: green">{{ item.user_money }}</span>
@@ -33,16 +33,14 @@
   </div>
 </template>
 <script>
-import { Toast, Field,Indicator } from "mint-ui";
+import { Toast, Field, Indicator } from "mint-ui";
 export default {
   name: "salary",
   data() {
     return {
       starttime: "",
       endtime: "",
-      userList: [
-        
-      ],
+      userList: [],
     };
   },
   methods: {
@@ -54,22 +52,27 @@ export default {
       const token = window.sessionStorage.getItem("cat_token");
       this.$axios
         .get("api/admin/userlist", {
+          params: {
+            stime: this.starttime,
+            etime: this.endtime,
+          },
           headers: {
             Authorization: "Bearer " + token,
           },
         })
         .then((res) => {
-          Indicator.close()
+          Indicator.close();
           this.userList = res.data;
-          // console.log(this.employ);
+          // console.log(res);
         });
     },
-    getDetail(userid) {
-      console.log(userid);
+    getDetail(userid, username) {
+      // console.log(userid);
       this.$router.push({
         path: "/about",
         query: {
           userid: userid,
+          username: username,
           stime: this.starttime,
           etime: this.endtime,
         },

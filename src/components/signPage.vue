@@ -1,8 +1,8 @@
 <template>
-  <div>
+  <div class="part">
     <div class="star">
-      <p class="pickername">星级:</p>
-      <input type="text" @click="showSheet(0)" v-model="starValue" />
+      <!-- <p class="pickername">星级:</p> -->
+      <mt-cell title="星级" @click.native="showSheet()"><span>{{ starValue }}</span></mt-cell>
       <mt-actionsheet
         :actions="starpicker"
         v-model="starVisible"
@@ -10,8 +10,9 @@
     </div>
     <p class="date">当前时间为：{{ date }}</p>
     <div class="time">
-      <p class="pickername">班次:</p>
-      <input type="text" v-model="timeValue" />
+      <!-- <p class="pickername">班次:</p> -->
+      <!-- <input type="text" v-model="timeValue" /> -->
+      <mt-cell title="班次"><span>{{ timeValue }}</span></mt-cell>
     </div>
     <mt-button
       class="s-btn"
@@ -101,7 +102,6 @@ export default {
         },
       ],
       starVisible: false,
-      timeVisible: false,
       starValue: "2.5",
       timeValue: "",
       timeflag: 0,
@@ -110,12 +110,8 @@ export default {
     };
   },
   methods: {
-    showSheet(id) {
-      if (id == 0) {
+    showSheet() {
         this.starVisible = !this.starVisible;
-      } else {
-        this.timeVisible = !this.timeVisible;
-      }
     },
     confirm() {
       MessageBox.confirm("确定在" +
@@ -146,7 +142,6 @@ export default {
             "api/sigrec",
             {
               star: this.starValue,
-              money: 10,
               grade: this.timeValue,
               remarks: null,
             },
@@ -158,22 +153,24 @@ export default {
           )
           .then((res) => {
             Indicator.close();
-            this.showToast("打卡成功！");
             this.disabled = true
             setTimeout(()=>{
               this.disabled = false
-              console.log(res);
+              // console.log(res);
             },10800000)
-            
+             if(res.result.msg=="三小时内只能打卡一次"){
+              this.showToast("三小时内只能打卡一次")
+            }else this.showToast("打卡成功！");
+            // console.log(res);
           })
           .catch((err) => {
             Indicator.close();
             this.showToast("打卡失败，请重试");
-            console.log(err);
+            // console.log(err);
           });
       })
       .catch((err)=>{
-        console.log(err)
+        // console.log(err)
       })
     },
     getPrice(res) {
@@ -233,11 +230,15 @@ export default {
   font-size: 20px;
   font-weight: 400;
 }
-.star,
+/* .star,
 .time {
   display: flex;
   justify-content: space-around;
   align-items: center;
+} */
+.star,.time span {
+  font-size: 20px;
+  font-weight: 400;
 }
 input {
   width: 70%;

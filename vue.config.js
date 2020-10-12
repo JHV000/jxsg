@@ -40,7 +40,18 @@ module.exports = {
     }
   },
 
-  publicPath: "./"
+  publicPath: isProd
+    ? './' : '/',
+  lintOnSave: true,
+  // 是否生成sourcemap文件，生成环境不生成以加速生产环境构建
+  productionSourceMap: !isProd,
+  // 静态资源文件的目录
+  assetsDir: 'static',
+  // css是否开启sourcemap,生成环境不生成
+  css: {
+    sourceMap: !isProd
+  },
+
 
 
 }

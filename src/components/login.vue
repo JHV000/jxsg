@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="login">
     <mt-field
     class="login-cell"
       label="用户名"
@@ -43,7 +43,7 @@ export default {
         })
         .then((res) => {
           window.sessionStorage.setItem('cat_token', res.data.access_token)
-          console.log(res);
+          // console.log(res);
           Indicator.close();
           if (res.result.code == 1) {
             this.$router.push({
@@ -71,7 +71,7 @@ export default {
 </script>
 <style>
 .mint-tab-item-label {
-  font-size: 25px !important;
+  font-size: 15px !important;
 }
 .mint-navbar .mint-tab-item.is-selected {
   background-color: #ef4f4f;
@@ -79,11 +79,11 @@ export default {
 }
 
 .login-cell {
-  border-bottom: 1px solid !important;
-  /* border-radius: 10px !important; */
   margin-top: 20px;
+  border-radius: 50px;
 }
-.login-btn {
+.login .login-btn {
   margin-top: 30px;
+  border-radius: 50px;
 }
 </style>

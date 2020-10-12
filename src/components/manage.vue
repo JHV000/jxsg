@@ -23,9 +23,9 @@ export default {
       employ: [],
     };
   },
-  // created() {
-  //   this.getUser();
-  // },
+  created() {
+    this.getUser();
+  },
   methods: {
     getUser() {
       Indicator.open({
@@ -65,7 +65,7 @@ export default {
         })
         .catch((err) => {
           this.showToast("删除失败，请重试");
-          console.log(err);
+          // console.log(err);
         });
     },
     showToast(mes) {

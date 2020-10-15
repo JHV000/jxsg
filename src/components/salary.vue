@@ -64,7 +64,15 @@ export default {
           Indicator.close();
           this.userList = res.data;
           // console.log(res);
-        });
+        })
+        .catch((err)=>{
+          Indicator.close();
+            if (err.message == "Network Error") {
+            this.showToast("网络错误");
+          } else {
+            this.showToast("查询失败，请重试");
+          }
+        })
     },
     getDetail(userid, username) {
       // console.log(userid);

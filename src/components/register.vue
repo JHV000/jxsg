@@ -75,7 +75,11 @@ export default {
             })
             .catch((err) => {
               Indicator.close();
-              this.showToast("用户名重复或请求错误");
+              if (err.message == "Network Error"||err.response.status==500) {
+                this.showToast("网络错误");
+              } else {
+                this.showToast("用户名重复");
+              }
             });
         } else {
           this.showToast("两次密码不一致");

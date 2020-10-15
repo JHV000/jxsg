@@ -165,7 +165,12 @@ export default {
           })
           .catch((err) => {
             Indicator.close();
+            if (err.message == "Network Error") {
+            this.showToast("网络错误");
+          } else {
             this.showToast("打卡失败，请重试");
+          }
+            
             // console.log(err);
           });
       })

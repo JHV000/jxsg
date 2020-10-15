@@ -43,7 +43,14 @@ export default {
           Indicator.close();
           this.employ = res.data;
           // console.log(this.employ);
-        });
+        })
+        .catch((err)=>{
+           if (err.message == "Network Error") {
+            this.showToast("网络错误");
+          } else {
+            this.showToast("加载失败，请重试");
+          }
+        })
     },
     deleteUser(id, name) {
       MessageBox.confirm("确定删除员工" + "<b>" + name + "</b>吗？")
